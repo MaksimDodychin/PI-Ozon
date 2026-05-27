@@ -1,0 +1,80 @@
+{
+  "date": "27.05 после загр. 04:40 (КО)",
+  "updated_at": "2026-05-28T02:50:18+03:00",
+  "ko": {
+    "f1": 1.0383,
+    "f2": 1.0313,
+    "ozon": null,
+    "delta": 0.0,
+    "status": "🟡 выше коридора"
+  },
+  "at": {
+    "f1": 0.9897,
+    "f2": 0.9744,
+    "ozon": null,
+    "delta": 0.0,
+    "status": "🟢 в норме"
+  },
+  "itogo": {
+    "f1": 1.014,
+    "ozon": null,
+    "delta": 0.0
+  },
+  "history": [
+    {
+      "date": "31.05 утром",
+      "ko_f1": null,
+      "ko_f2": null,
+      "ko_ozon": null,
+      "at_f1": null,
+      "at_f2": null,
+      "at_ozon": null,
+      "itogo_f1": null,
+      "itogo_ozon": null
+    },
+    {
+      "date": "27.05 после загр. 10:36 (АТ)",
+      "ko_f1": 1.0383,
+      "ko_f2": 1.0313,
+      "ko_ozon": null,
+      "at_f1": 0.9897,
+      "at_f2": 0.9744,
+      "at_ozon": null,
+      "itogo_f1": 1.014,
+      "itogo_ozon": null
+    },
+    {
+      "date": "27.05 после загр. 12:08 (АТ)",
+      "ko_f1": 1.0383,
+      "ko_f2": 1.0313,
+      "ko_ozon": null,
+      "at_f1": 0.9897,
+      "at_f2": 0.9744,
+      "at_ozon": null,
+      "itogo_f1": 1.014,
+      "itogo_ozon": null
+    },
+    {
+      "date": "27.05 после загр. 03:30 (КО)",
+      "ko_f1": 1.0383,
+      "ko_f2": 1.0313,
+      "ko_ozon": null,
+      "at_f1": 0.9897,
+      "at_f2": 0.9744,
+      "at_ozon": null,
+      "itogo_f1": 1.014,
+      "itogo_ozon": null
+    },
+    {
+      "date": "27.05 после загр. 04:40 (КО)",
+      "ko_f1": 1.0383,
+      "ko_f2": 1.0313,
+      "ko_ozon": null,
+      "at_f1": 0.9897,
+      "at_f2": 0.9744,
+      "at_ozon": null,
+      "itogo_f1": 1.014,
+      "itogo_ozon": null
+    }
+  ]
+}

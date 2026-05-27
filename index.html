@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#14161c">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="PI OZON">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<title>Прайс индекс OZON</title>
+<style>
+  :root {
+    --bg: #0b0d12;
+    --card: rgba(20, 22, 28, 0.95);
+    --border: rgba(255,255,255,0.1);
+    --text: #fff;
+    --muted: #888;
+    --label: #aaa;
+    --green: #4ade80;
+    --yellow: #fbbf24;
+    --red: #ef4444;
+    --ozon: #fbbf24;
+  }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, "SF Pro Display", "Helvetica Neue", sans-serif;
+    min-height: 100vh;
+    overscroll-behavior-y: contain;
+  }
+  body {
+    padding: max(env(safe-area-inset-top), 16px) 16px max(env(safe-area-inset-bottom), 16px);
+  }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 20px 20px 16px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    margin-bottom: 14px;
+  }
+  h1 {
+    font-size: 13px;
+    color: var(--muted);
+    margin: 0 0 4px 0;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 500;
+  }
+  .date {
+    color: #ccc;
+    font-size: 13px;
+    margin-bottom: 4px;
+  }
+  .updated {
+    color: var(--muted);
+    font-size: 11px;
+    margin-bottom: 4px;
+  }
+  .row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .row:last-child { border-bottom: none; }
+  .row .left .label { color: var(--label); font-size: 14px; font-weight: 500; }
+  .row .left .status { font-size: 11px; color: #ccc; margin-top: 2px; }
+  .row .right { text-align: right; }
+  .value { font-size: 26px; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .delta { font-size: 12px; color: var(--muted); margin-left: 6px; }
+  .ozon { display: block; font-size: 13px; color: var(--ozon); margin-top: 2px; font-variant-numeric: tabular-nums; }
+  .green { color: var(--green); }
+  .yellow { color: var(--yellow); }
+  .red { color: var(--red); }
+  .itogo-label { font-weight: 600; color: #fff; font-size: 15px; }
+  .footer {
+    font-size: 11px;
+    color: #555;
+    text-align: center;
+    padding: 6px 0 0;
+  }
+  .reload {
+    position: fixed;
+    top: max(env(safe-area-inset-top), 12px);
+    right: 12px;
+    width: 36px; height: 36px;
+    border-radius: 18px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid var(--border);
+    color: #ccc;
+    font-size: 16px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    user-select: none;
+  }
+  .reload.spin { animation: spin 1s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .error {
+    background: rgba(239, 68, 68, 0.12);
+    border-color: rgba(239,68,68,0.3);
+    color: #fca5a5;
+    font-size: 13px;
+    padding: 14px 18px;
+    border-radius: 14px;
+    margin-bottom: 14px;
+  }
+  .stale {
+    background: rgba(251,191,36,0.12);
+    border: 1px solid rgba(251,191,36,0.3);
+    color: #fde68a;
+    font-size: 12px;
+    padding: 10px 14px;
+    border-radius: 12px;
+    margin-bottom: 12px;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+<div class="reload" id="reload" aria-label="Обновить">↻</div>
+<div id="app">
+  <div class="card"><div class="muted">Загрузка…</div></div>
+</div>
+
+<script>
+const fmt = v => v == null ? '—' : v.toFixed(3);
+const fmtOzon = v => v == null ? '' : v.toFixed(2);
+const fmtDelta = d => d == null ? '' : (d > 0 ? `+${d.toFixed(3)}` : d.toFixed(3));
+const colorFor = v => v == null ? '' : (v >= 0.98 && v <= 1.02 ? 'green' : 'yellow');
+
+function timeAgo(iso) {
+  if (!iso) return '';
+  const t = new Date(iso);
+  if (isNaN(t)) return '';
+  const sec = Math.floor((Date.now() - t.getTime()) / 1000);
+  if (sec < 60) return `${sec} с назад`;
+  if (sec < 3600) return `${Math.floor(sec/60)} мин назад`;
+  if (sec < 86400) return `${Math.floor(sec/3600)} ч назад`;
+  return `${Math.floor(sec/86400)} дн назад`;
+}
+
+function render(data, stale) {
+  const app = document.getElementById('app');
+  if (data.error) {
+    app.innerHTML = `<div class="card error">⚠️ ${data.error}</div>`;
+    return;
+  }
+  const ko = data.ko || {}, at = data.at || {}, itogo = data.itogo || {};
+  const updated = data.updated_at ? `обновлено ${timeAgo(data.updated_at)}` : '';
+  const staleBanner = stale ? `<div class="stale">Нет сети — показано последнее значение</div>` : '';
+  app.innerHTML = `
+    ${staleBanner}
+    <div class="card">
+      <h1>Прайс индекс OZON</h1>
+      <div class="date">${data.date || ''}</div>
+      <div class="updated">${updated}</div>
+      <div class="row">
+        <div class="left">
+          <div class="label">ИП Колесова</div>
+          <div class="status">${ko.status || ''}</div>
+        </div>
+        <div class="right">
+          <span class="value ${colorFor(ko.f1)}">${fmt(ko.f1)}</span>
+          <span class="delta">${fmtDelta(ko.delta)}</span>
+          ${ko.ozon != null ? `<span class="ozon">OZON: ${fmtOzon(ko.ozon)}</span>` : ''}
+        </div>
+      </div>
+      <div class="row">
+        <div class="left">
+          <div class="label">ООО Альфа-Трейд</div>
+          <div class="status">${at.status || ''}</div>
+        </div>
+        <div class="right">
+          <span class="value ${colorFor(at.f1)}">${fmt(at.f1)}</span>
+          <span class="delta">${fmtDelta(at.delta)}</span>
+          ${at.ozon != null ? `<span class="ozon">OZON: ${fmtOzon(at.ozon)}</span>` : ''}
+        </div>
+      </div>
+      <div class="row">
+        <div class="left">
+          <div class="itogo-label">ИТОГО</div>
+        </div>
+        <div class="right">
+          <span class="value ${colorFor(itogo.f1)}">${fmt(itogo.f1)}</span>
+          <span class="delta">${fmtDelta(itogo.delta)}</span>
+          ${itogo.ozon != null ? `<span class="ozon">OZON: ${fmtOzon(itogo.ozon)}</span>` : ''}
+        </div>
+      </div>
+      <div class="footer">F1: Активные + коридор 0.5–2.0</div>
+    </div>`;
+}
+
+let loading = false;
+async function load() {
+  if (loading) return;
+  loading = true;
+  const btn = document.getElementById('reload');
+  btn.classList.add('spin');
+  let data = null, stale = false;
+  try {
+    const r = await fetch('data.json?ts=' + Date.now(), { cache: 'no-store' });
+    if (!r.ok) throw new Error(r.status);
+    data = await r.json();
+  } catch (e) {
+    try {
+      const c = await caches.match('data.json');
+      if (c) { data = await c.json(); stale = true; }
+    } catch {}
+    if (!data) data = { error: 'Нет данных и нет сети' };
+  }
+  render(data, stale);
+  btn.classList.remove('spin');
+  loading = false;
+}
+
+document.getElementById('reload').addEventListener('click', load);
+document.addEventListener('visibilitychange', () => { if (!document.hidden) load(); });
+load();
+setInterval(load, 5 * 60 * 1000);
+
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('service-worker.js').catch(()=>{});
+}
+</script>
+</body>
+</html>
