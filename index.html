@@ -85,10 +85,9 @@
     text-align: center;
     padding: 6px 0 0;
   }
-  .reload {
+  .reload, .bell {
     position: fixed;
     top: max(env(safe-area-inset-top), 12px);
-    right: 12px;
     width: 36px; height: 36px;
     border-radius: 18px;
     background: rgba(255,255,255,0.08);
@@ -99,8 +98,20 @@
     cursor: pointer;
     user-select: none;
   }
+  .reload { right: 12px; }
+  .bell { right: 56px; }
+  .bell.on { color: var(--green); background: rgba(74,222,128,0.12); border-color: rgba(74,222,128,0.3); }
+  .bell.hidden { display: none; }
   .reload.spin { animation: spin 1s linear infinite; }
   @keyframes spin { to { transform: rotate(360deg); } }
+  .toast {
+    position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%);
+    background: rgba(20,22,28,0.95); border: 1px solid var(--border);
+    color: #fff; padding: 10px 16px; border-radius: 14px;
+    font-size: 13px; opacity: 0; transition: opacity .25s;
+    pointer-events: none; max-width: 90%; text-align: center;
+  }
+  .toast.show { opacity: 1; }
   .error {
     background: rgba(239, 68, 68, 0.12);
     border-color: rgba(239,68,68,0.3);
@@ -123,10 +134,12 @@
 </style>
 </head>
 <body>
+<div class="bell hidden" id="bell" aria-label="Уведомления">🔕</div>
 <div class="reload" id="reload" aria-label="Обновить">↻</div>
 <div id="app">
   <div class="card"><div class="muted">Загрузка…</div></div>
 </div>
+<div class="toast" id="toast"></div>
 
 <script>
 const fmt = v => v == null ? '—' : v.toFixed(3);
@@ -227,6 +240,98 @@ setInterval(load, 5 * 60 * 1000);
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('service-worker.js').catch(()=>{});
 }
+
+// === Push-уведомления (Web Push через Cloudflare Worker) ===
+const PUSH_API = 'https://pi-ozon-push.dobyvankenoby.workers.dev';
+const VAPID_PUBLIC = 'BJ6Dobr0x58UHCYmrsBewYNr9eeAJ7p3C7MbUkBq-aKa2nLcCfQEu3suImWKnK_jegEq9CTjhY0KfPDOc2I_sZY';
+
+function toast(msg, ms = 2200) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  clearTimeout(toast._h);
+  toast._h = setTimeout(() => t.classList.remove('show'), ms);
+}
+
+function urlB64ToUint8Array(b64) {
+  const pad = '='.repeat((4 - b64.length % 4) % 4);
+  const s = (b64 + pad).replace(/-/g, '+').replace(/_/g, '/');
+  const raw = atob(s);
+  const out = new Uint8Array(raw.length);
+  for (let i=0; i<raw.length; i++) out[i] = raw.charCodeAt(i);
+  return out;
+}
+
+const isStandalone = window.navigator.standalone || window.matchMedia('(display-mode: standalone)').matches;
+const pushSupported = 'serviceWorker' in navigator && 'PushManager' in window && 'Notification' in window;
+
+async function pushState() {
+  if (!pushSupported) return { supported: false };
+  const reg = await navigator.serviceWorker.ready;
+  const sub = await reg.pushManager.getSubscription();
+  return { supported: true, permission: Notification.permission, subscription: sub };
+}
+
+async function subscribe() {
+  if (!pushSupported) { toast('Браузер не поддерживает push'); return; }
+  if (!isStandalone) {
+    toast('Добавьте на экран «Домой» — iOS требует это для push');
+    return;
+  }
+  let perm = Notification.permission;
+  if (perm === 'default') perm = await Notification.requestPermission();
+  if (perm !== 'granted') { toast('Разрешение отклонено'); return; }
+
+  const reg = await navigator.serviceWorker.ready;
+  let sub = await reg.pushManager.getSubscription();
+  if (!sub) {
+    sub = await reg.pushManager.subscribe({
+      userVisibleOnly: true,
+      applicationServerKey: urlB64ToUint8Array(VAPID_PUBLIC),
+    });
+  }
+  const r = await fetch(`${PUSH_API}/subscribe`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ subscription: sub.toJSON() }),
+  });
+  if (!r.ok) { toast('Ошибка регистрации на сервере'); return; }
+  toast('Уведомления включены');
+  updateBell();
+}
+
+async function unsubscribe() {
+  const reg = await navigator.serviceWorker.ready;
+  const sub = await reg.pushManager.getSubscription();
+  if (sub) {
+    await fetch(`${PUSH_API}/unsubscribe`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ endpoint: sub.endpoint }),
+    }).catch(()=>{});
+    await sub.unsubscribe();
+  }
+  toast('Уведомления выключены');
+  updateBell();
+}
+
+async function updateBell() {
+  const bell = document.getElementById('bell');
+  if (!pushSupported) { bell.classList.add('hidden'); return; }
+  // На iOS PWA push работает только в standalone (Add to Home Screen).
+  // Если открыт в Safari как сайт — прячем кнопку.
+  const isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent);
+  if (isIOS && !isStandalone) { bell.classList.add('hidden'); return; }
+  bell.classList.remove('hidden');
+  const st = await pushState();
+  if (st.subscription && st.permission === 'granted') {
+    bell.textContent = '🔔'; bell.classList.add('on');
+    bell.onclick = unsubscribe;
+  } else {
+    bell.textContent = '🔕'; bell.classList.remove('on');
+    bell.onclick = subscribe;
+  }
+}
+updateBell();
 </script>
 </body>
 </html>

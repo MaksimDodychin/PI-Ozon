@@ -1,0 +1,9 @@
+{
+  "name": "pi-ozon-dashboard",
+  "version": "1.0.0",
+  "private": true,
+  "description": "PWA dashboard + push sender for PI OZON",
+  "dependencies": {
+    "web-push": "^3.6.7"
+  }
+}

@@ -1,0 +1,8 @@
+name = "pi-ozon-push"
+main = "src/index.js"
+compatibility_date = "2025-05-01"
+
+# KV namespace для хранения подписок (id подставится автоматически после `wrangler kv namespace create SUBS`)
+[[kv_namespaces]]
+binding = "SUBS"
+id = "e64d61a97eb34821990f8bb4e4bf87ce"

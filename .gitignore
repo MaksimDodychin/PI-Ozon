@@ -2,3 +2,9 @@ make_icons.py
 __pycache__/
 *.pyc
 .DS_Store
+.secrets/
+node_modules/
+worker/node_modules/
+worker/.wrangler/
+worker/.dev.vars
+package-lock.json
