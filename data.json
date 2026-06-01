@@ -1,79 +1,35 @@
 {
-  "date": "31.05 утром",
-  "updated_at": "2026-05-31T19:03:35+03:00",
+  "date": "01.06 утром",
+  "updated_at": "2026-06-01T06:32:20+03:00",
   "ko": {
-    "f1": 1.0319,
-    "f2": 1.0297,
+    "f1": 1.0156,
+    "f2": 1.0114,
     "ozon": null,
-    "delta": -0.0016,
+    "delta": null,
     "status": "🟡 выше коридора"
   },
   "at": {
-    "f1": 0.9967,
-    "f2": 0.9888,
+    "f1": 0.9955,
+    "f2": 0.989,
     "ozon": null,
-    "delta": 0.0008,
+    "delta": null,
     "status": "🟢 в норме"
   },
   "itogo": {
-    "f1": 1.0143,
+    "f1": 1.0055,
     "ozon": null,
-    "delta": -0.0004
+    "delta": null
   },
   "history": [
     {
-      "date": "31.05 утром",
-      "ko_f1": 1.0319,
-      "ko_f2": 1.0297,
+      "date": "01.06 утром",
+      "ko_f1": 1.0156,
+      "ko_f2": 1.0114,
       "ko_ozon": null,
-      "at_f1": 0.9967,
-      "at_f2": 0.9888,
+      "at_f1": 0.9955,
+      "at_f2": 0.989,
       "at_ozon": null,
-      "itogo_f1": 1.0143,
-      "itogo_ozon": null
-    },
-    {
-      "date": "27.05 после загр. 10:36 (АТ)",
-      "ko_f1": 1.0383,
-      "ko_f2": 1.0313,
-      "ko_ozon": null,
-      "at_f1": 0.9897,
-      "at_f2": 0.9744,
-      "at_ozon": null,
-      "itogo_f1": 1.014,
-      "itogo_ozon": null
-    },
-    {
-      "date": "27.05 после загр. 12:08 (АТ)",
-      "ko_f1": 1.0383,
-      "ko_f2": 1.0313,
-      "ko_ozon": null,
-      "at_f1": 0.9897,
-      "at_f2": 0.9744,
-      "at_ozon": null,
-      "itogo_f1": 1.014,
-      "itogo_ozon": null
-    },
-    {
-      "date": "27.05 после загр. 03:30 (КО)",
-      "ko_f1": 1.0383,
-      "ko_f2": 1.0313,
-      "ko_ozon": null,
-      "at_f1": 0.9897,
-      "at_f2": 0.9744,
-      "at_ozon": null,
-      "itogo_f1": 1.014,
-      "itogo_ozon": null
-    },
-    {
-      "date": "27.05 после загр. 04:40 (КО)",
-      "ko_f1": 1.0383,
-      "ko_f2": 1.0313,
-      "ko_ozon": null,
-      "at_f1": 0.9897,
-      "at_f2": 0.9744,
-      "at_ozon": null,
-      "itogo_f1": 1.014,
+      "itogo_f1": 1.0055,
       "itogo_ozon": null
     }
   ]
