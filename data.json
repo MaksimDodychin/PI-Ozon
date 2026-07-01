@@ -1,79 +1,35 @@
 {
-  "date": "30.06 утром",
-  "updated_at": "2026-06-30T19:03:54+03:00",
+  "date": "01.07 утром",
+  "updated_at": "2026-07-01T08:21:42+03:00",
   "ko": {
-    "f1": 1.0483,
-    "f2": 1.0483,
+    "f1": 1.0131,
+    "f2": 1.0131,
     "ozon": null,
-    "delta": -0.065,
+    "delta": null,
     "status": "🟡 выше коридора"
   },
   "at": {
-    "f1": 1.0963,
-    "f2": 1.0928,
+    "f1": 1.0113,
+    "f2": 1.007,
     "ozon": null,
-    "delta": 0.0046,
+    "delta": null,
     "status": "🟡 выше коридора"
   },
   "itogo": {
-    "f1": 1.0723,
+    "f1": 1.0122,
     "ozon": null,
-    "delta": -0.0302
+    "delta": null
   },
   "history": [
     {
-      "date": "26.06 утром",
-      "ko_f1": 1.1063,
-      "ko_f2": 1.1063,
+      "date": "01.07 утром",
+      "ko_f1": 1.0131,
+      "ko_f2": 1.0131,
       "ko_ozon": null,
-      "at_f1": 1.0431,
-      "at_f2": 1.0431,
+      "at_f1": 1.0113,
+      "at_f2": 1.007,
       "at_ozon": null,
-      "itogo_f1": 1.0747,
-      "itogo_ozon": null
-    },
-    {
-      "date": "27.06 утром",
-      "ko_f1": 1.0998,
-      "ko_f2": 1.0998,
-      "ko_ozon": null,
-      "at_f1": 1.0413,
-      "at_f2": 1.0377,
-      "at_ozon": null,
-      "itogo_f1": 1.0705,
-      "itogo_ozon": null
-    },
-    {
-      "date": "28.06 утром",
-      "ko_f1": 1.0975,
-      "ko_f2": 1.0975,
-      "ko_ozon": null,
-      "at_f1": 1.0895,
-      "at_f2": 1.0869,
-      "at_ozon": null,
-      "itogo_f1": 1.0935,
-      "itogo_ozon": null
-    },
-    {
-      "date": "29.06 утром",
-      "ko_f1": 1.1133,
-      "ko_f2": 1.1133,
-      "ko_ozon": null,
-      "at_f1": 1.0917,
-      "at_f2": 1.0891,
-      "at_ozon": null,
-      "itogo_f1": 1.1025,
-      "itogo_ozon": null
-    },
-    {
-      "date": "30.06 утром",
-      "ko_f1": 1.0483,
-      "ko_f2": 1.0483,
-      "ko_ozon": null,
-      "at_f1": 1.0963,
-      "at_f2": 1.0928,
-      "at_ozon": null,
-      "itogo_f1": 1.0723,
+      "itogo_f1": 1.0122,
       "itogo_ozon": null
     }
   ]
