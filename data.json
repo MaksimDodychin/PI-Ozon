@@ -1,24 +1,24 @@
 {
-  "date": "01.07 утром",
-  "updated_at": "2026-07-01T19:04:18+03:00",
+  "date": "02.07 утром",
+  "updated_at": "2026-07-02T07:18:51+03:00",
   "ko": {
-    "f1": 1.0131,
-    "f2": 1.0131,
+    "f1": 1.0788,
+    "f2": 1.0788,
     "ozon": null,
-    "delta": null,
+    "delta": 0.0657,
     "status": "🟡 выше коридора"
   },
   "at": {
-    "f1": 1.0113,
-    "f2": 1.007,
+    "f1": 1.0786,
+    "f2": 1.0778,
     "ozon": null,
-    "delta": null,
+    "delta": 0.0673,
     "status": "🟡 выше коридора"
   },
   "itogo": {
-    "f1": 1.0122,
+    "f1": 1.0787,
     "ozon": null,
-    "delta": null
+    "delta": 0.0665
   },
   "history": [
     {
@@ -30,6 +30,17 @@
       "at_f2": 1.007,
       "at_ozon": null,
       "itogo_f1": 1.0122,
+      "itogo_ozon": null
+    },
+    {
+      "date": "02.07 утром",
+      "ko_f1": 1.0788,
+      "ko_f2": 1.0788,
+      "ko_ozon": null,
+      "at_f1": 1.0786,
+      "at_f2": 1.0778,
+      "at_ozon": null,
+      "itogo_f1": 1.0787,
       "itogo_ozon": null
     }
   ]
