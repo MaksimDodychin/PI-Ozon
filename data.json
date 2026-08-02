@@ -1,4 +1,36 @@
 {
-  "error": "нет данных",
-  "updated_at": "2026-08-01T19:42:39+03:00"
+  "date": "02.08 утром",
+  "updated_at": "2026-08-02T08:15:43+03:00",
+  "ko": {
+    "f1": 0.8634,
+    "f2": 0.8634,
+    "ozon": null,
+    "delta": null,
+    "status": "🟡 ниже коридора"
+  },
+  "at": {
+    "f1": 1.017,
+    "f2": 1.01,
+    "ozon": null,
+    "delta": null,
+    "status": "🟡 выше коридора"
+  },
+  "itogo": {
+    "f1": 0.9402,
+    "ozon": null,
+    "delta": null
+  },
+  "history": [
+    {
+      "date": "02.08 утром",
+      "ko_f1": 0.8634,
+      "ko_f2": 0.8634,
+      "ko_ozon": null,
+      "at_f1": 1.017,
+      "at_f2": 1.01,
+      "at_ozon": null,
+      "itogo_f1": 0.9402,
+      "itogo_ozon": null
+    }
+  ]
 }
