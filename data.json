@@ -1,24 +1,24 @@
 {
-  "date": "02.08 утром",
-  "updated_at": "2026-08-02T16:21:11+03:00",
+  "date": "03.08 утром",
+  "updated_at": "2026-08-03T07:33:30+03:00",
   "ko": {
-    "f1": 0.8634,
-    "f2": 0.8634,
+    "f1": 0.8752,
+    "f2": 0.8752,
     "ozon": null,
-    "delta": null,
+    "delta": 0.0118,
     "status": "🟡 ниже коридора"
   },
   "at": {
-    "f1": 1.017,
-    "f2": 1.01,
+    "f1": 0.9994,
+    "f2": 0.9934,
     "ozon": null,
-    "delta": null,
-    "status": "🟡 выше коридора"
+    "delta": -0.0176,
+    "status": "🟢 в норме"
   },
   "itogo": {
-    "f1": 0.9402,
+    "f1": 0.9373,
     "ozon": null,
-    "delta": null
+    "delta": -0.0029
   },
   "history": [
     {
@@ -30,6 +30,17 @@
       "at_f2": 1.01,
       "at_ozon": null,
       "itogo_f1": 0.9402,
+      "itogo_ozon": null
+    },
+    {
+      "date": "03.08 утром",
+      "ko_f1": 0.8752,
+      "ko_f2": 0.8752,
+      "ko_ozon": null,
+      "at_f1": 0.9994,
+      "at_f2": 0.9934,
+      "at_ozon": null,
+      "itogo_f1": 0.9373,
       "itogo_ozon": null
     }
   ]
