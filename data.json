@@ -1,79 +1,35 @@
 {
-  "date": "31.08 утром",
-  "updated_at": "2026-08-31T22:40:41+03:00",
+  "date": "01.09 утром",
+  "updated_at": "2026-09-01T08:30:08+03:00",
   "ko": {
-    "f1": 0.9336,
-    "f2": 0.9336,
+    "f1": 0.9941,
+    "f2": 0.9381,
     "ozon": null,
-    "delta": 0.0574,
-    "status": "🟡 ниже коридора"
+    "delta": null,
+    "status": "🟢 в норме"
   },
   "at": {
-    "f1": 0.9571,
-    "f2": 0.9238,
+    "f1": 0.9885,
+    "f2": 0.9564,
     "ozon": null,
-    "delta": 0.0101,
+    "delta": null,
     "status": "🟡 ниже коридора"
   },
   "itogo": {
-    "f1": 0.9453,
+    "f1": 0.9913,
     "ozon": null,
-    "delta": 0.0337
+    "delta": null
   },
   "history": [
     {
-      "date": "26.08 утром",
-      "ko_f1": 0.9664,
-      "ko_f2": 0.9664,
+      "date": "01.09 утром",
+      "ko_f1": 0.9941,
+      "ko_f2": 0.9381,
       "ko_ozon": null,
-      "at_f1": 0.9772,
-      "at_f2": 0.9626,
+      "at_f1": 0.9885,
+      "at_f2": 0.9564,
       "at_ozon": null,
-      "itogo_f1": 0.9718,
-      "itogo_ozon": null
-    },
-    {
-      "date": "28.08 утром",
-      "ko_f1": 0.9431,
-      "ko_f2": 0.9431,
-      "ko_ozon": null,
-      "at_f1": 0.9748,
-      "at_f2": 0.9653,
-      "at_ozon": null,
-      "itogo_f1": 0.9589,
-      "itogo_ozon": null
-    },
-    {
-      "date": "29.08 утром",
-      "ko_f1": 0.8759,
-      "ko_f2": 0.8759,
-      "ko_ozon": null,
-      "at_f1": 0.9642,
-      "at_f2": 0.9278,
-      "at_ozon": null,
-      "itogo_f1": 0.9201,
-      "itogo_ozon": null
-    },
-    {
-      "date": "30.08 утром",
-      "ko_f1": 0.8762,
-      "ko_f2": 0.8762,
-      "ko_ozon": null,
-      "at_f1": 0.947,
-      "at_f2": 0.9132,
-      "at_ozon": null,
-      "itogo_f1": 0.9116,
-      "itogo_ozon": null
-    },
-    {
-      "date": "31.08 утром",
-      "ko_f1": 0.9336,
-      "ko_f2": 0.9336,
-      "ko_ozon": null,
-      "at_f1": 0.9571,
-      "at_f2": 0.9238,
-      "at_ozon": null,
-      "itogo_f1": 0.9453,
+      "itogo_f1": 0.9913,
       "itogo_ozon": null
     }
   ]
